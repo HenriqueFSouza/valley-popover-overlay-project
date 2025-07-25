@@ -1,36 +1,61 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Valley Challenge - Content Management Dashboard
+
+React application for AI training conversations and message threads with real-time data fetching.
+
+## Technical Approach
+
+**Architecture**: Clean layered architecture with separation of concerns
+
+- **API Layer**: Next.js routes with mock data
+- **Service Layer**: HTTP clients with error handling
+- **Hook Layer**: SWR for data fetching and caching
+- **Component Layer**: React components with TypeScript
+
+**Stack**: Next.js 14, TypeScript, SWR, Tailwind CSS, shadcn/ui
+
+**Data Flow**: `Components → SWR Hooks → Services → API Routes`
+
+## Component Structure
+
+```
+PopoverOverlay
+├── HeaderSection (navigation)
+├── ContentSection (tabs: AITraining, Messages)
+└── ProfileSection (user details)
+```
+
+**Organization Rationale**:
+
+- Single responsibility per component
+- Separation of data hooks (`useProfile`, `useAITraining`, `useMessages`) from action hooks (`useAITrainingActions`, `useMessageActions`)
+- Entity-based folder structure (`profiles/`, `ai-training/`, `messages/`)
+
+## Assumptions & Edge Cases
+
+**Assumptions**:
+
+- Mock API data (database integration pending)
+- Default profileId for demonstration
+
+**Edge Case Handling**:
+
+- Network failures: Automatic retry with exponential backoff
+- Loading states: Skeleton components to prevent layout shifts
+- Empty data: Graceful empty state messages
+- Type safety: Comprehensive null/undefined checking
+
+## Future Refactoring
+
+- Layout improvments based on Figma
+- React.memo and useMemo optimizations for performance
+- Virtual scrolling for large datasets
+- Improve cache performance with swr
 
 ## Getting Started
 
-First, run the development server:
-
 ```bash
-npm run dev
-# or
-yarn dev
-# or
+pnpm install
 pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+**Commands**: `pnpm dev` | `pnpm build` | `pnpm type-check` | `pnpm lint`
